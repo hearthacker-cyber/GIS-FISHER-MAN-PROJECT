@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeaTrack - GIS Application</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Night mode theme */
+        body {
+            background-color: #0e0e0e;
+            color: #fff;
+        }
+        .navbar {
+            background-color: #333; /* Dark grey */
+        }
+        .navbar-brand {
+            color: #f0f0f0; /* Light grey */
+            font-weight: bold;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* White shadow */
+            background-color: #222; /* Dark grey */
+            color: #fff; /* White text */
+        }
+        th{color: aliceblue;}
+        tr{
+            color: aqua;
+        }
+        .btn {
+            border-radius: 20px;
+        }
+        .footer {
+            background-color: #111; /* Very dark grey */
+            padding: 20px 0;
+            text-align: center;
+        }
+        #lineChart { height: 600px; } /* Match the height of the map */
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">DeepSeaTrack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to DeepSeaTrack</h1>
+    <div class="row">
+      <!-- Map -->
+      <div class="col-md-8">
+        <div id="map" style="height: 190px;">Map Placeholder</div>
+        <!-- Dummy content for GIS Mapping and Visualization -->
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">GIS Mapping and Visualization</h5>
+            <p class="card-text">Real-time visualization of fishermen's locations with additional layers of information such as weather conditions, maritime traffic, and oceanographic data.</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Line chart -->
+      <div class="col-md-4">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Fishermen Locations (Line Chart)</h5>
+            <!-- Line chart container -->
+            <canvas id="lineChart" style="height: 400px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <!-- Dummy content for Real-Time Monitoring -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Real-Time Monitoring</h5>
+            <p class="card-text">Track the location and status of fishermen in real-time.</p>
+            <!-- Real-time monitoring table -->
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Fisherman</th>
+                    <th>Last Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Fisherman 1</td>
+                    <td>Latitude: 51.5, Longitude: -0.09</td>
+                    <td>Active</td>
+                  </tr>
+                  <tr>
+                    <td>Fisherman 2</td>
+                    <td>Latitude: 52, Longitude: -0.1</td>
+                    <td>Active</td>
+                  </tr>
+                  <tr>
+                    <td>Fisherman 3</td>
+                    <td>Latitude: 51.7, Longitude: -0.2</td>
+                    <td>Inactive</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Dummy content for Alerting System -->
+      <div class="col-md-4">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Alerting System</h5>
+            <p class="card-text">Receive alerts for potential emergencies or anomalies during fishing operations.</p>
+            <!-- Real-time alerts -->
+            <div class="alert alert-danger" role="alert">
+              Emergency: Fisherman 3 has not moved for the past hour.
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Dummy content for Safety Features and User Interface -->
+      <div class="col-md-4">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Safety Features and User Interface</h5>
+            <p class="card-text">Integration of emergency buttons and distress signals for quick communication and assistance in case of emergencies.</p>
+            <button type="button" class="btn btn-danger">Emergency Button</button>
+            <button type="button" class="btn btn-warning">Distress Signal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-5 bg-dark text-white">
+    <div class="container text-center">
+      <p class="mb-0">Designed and Developed by Hifi11 Technologies</p>
+    </div>
+  </footer>
+  
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- Custom JavaScript for map integration -->
+<script>
+    // Initialize map
+    var map = L.map('map').setView([51.505, -0.09], 5); // Set initial view
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Dummy data for fishermen's locations
+    var fishermenLocations = [
+        { lat: 51.5, lng: -0.09, name: 'Fisherman 1', status: 'Active' },
+        { lat: 52, lng: -0.1, name: 'Fisherman 2', status: 'Active' },
+        { lat: 51.7, lng: -0.2, name: 'Fisherman 3', status: 'Inactive' }
+    ];
+
+    // Add markers for fishermen's locations
+    fishermenLocations.forEach(location => {
+        var marker = L.marker([location.lat, location.lng]).addTo(map)
+            .bindPopup(location.name + '<br>Status: ' + location.status);
+        if (location.status === 'Inactive') {
+            marker.setIcon(L.icon({
+                iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png', // You can customize the icon URL
+                iconSize: [25, 41], // Size of the marker icon
+                iconAnchor: [12, 41], // Point of the icon which corresponds to the marker's location
+                popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png', // URL to the shadow image
+                shadowSize: [41, 41], // Size of the shadow image
+                shadowAnchor: [12, 41]  // Point from which the shadow should start relative to the iconAnchor
+            }));
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Dummy data for line chart (replace with actual data)
+    var chartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'Fishermen Locations',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            tension: 0.4
+        }]
+    };
+
+    // Initialize line chart
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
+

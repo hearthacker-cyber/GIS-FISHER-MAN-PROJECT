@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time GPS Tracking</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 400px; }
+    </style>
+</head>
+<body>
+
+<!-- Map container -->
+<div id="map"></div>
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize map
+    var map = L.map('map').setView([0, 0], 5); // Initial view at [0, 0] with zoom level 5
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Function to update marker position
+    function updateMarker(lat, lng) {
+        if (typeof marker === 'undefined') {
+            marker = L.marker([lat, lng]).addTo(map);
+        } else {
+            marker.setLatLng([lat, lng]);
+        }
+    }
+
+    // Dummy function to simulate getting GPS data
+    function getGPSData() {
+        // Replace this with your actual code to fetch GPS data from your GPS module
+        // For demonstration, we'll just generate random latitude and longitude values
+        var lat = Math.random() * 90; // Random latitude between -90 and 90
+        var lng = Math.random() * 180; // Random longitude between -180 and 180
+        return { lat: lat, lng: lng };
+    }
+
+    // Update marker position every second
+    setInterval(function() {
+        var gpsData = getGPSData(); // Get GPS data
+        updateMarker(gpsData.lat, gpsData.lng); // Update marker position
+    }, 1000); // Update every 1 second
+</script>
+
+</body>
+</html>
